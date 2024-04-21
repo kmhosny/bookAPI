@@ -1,4 +1,4 @@
-require 'vendors/open_library'
+require 'vendors/book_search_service'
 class BooksController < ApplicationController
   def show
     isbn = params[:isbn]
@@ -7,7 +7,7 @@ class BooksController < ApplicationController
       return
     end
     book = Rails.cache.fetch(isbn, expires_in: 1.day) do
-      Vendors::OpenLibrary.find(isbn)
+      Vendors::BookSearchService.find(isbn)
     end
 
     return render json: { error: 'Book not found' }, status: :not_found if book.nil?

@@ -1,7 +1,7 @@
 require 'httparty'
 
 module Vendors
-  class OpenLibrary
+  class OpenLibraryWrapper < BookSearchBase
     def self.find(isbn)
       url = "https://openlibrary.org/isbn/#{isbn}"
       response = HTTParty.get(url, {
